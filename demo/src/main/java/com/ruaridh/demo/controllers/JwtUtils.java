@@ -19,7 +19,7 @@ public class JwtUtils implements Serializable {
 
     private static final long serialVersionUID = -2550185165626007488L;
 
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 1000; //5 mins
+    public static final long JWT_TOKEN_VALIDITY = 15 * 60 * 1000; //15 mins
 
     private final String _secret = "mysecretkey";
 
@@ -34,18 +34,9 @@ public class JwtUtils implements Serializable {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
-    public Date getExpirationDate(String token) {
-        return getClaimFromToken(token, Claims::getExpiration);
-    }
-
     private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = _parser.parseClaimsJws(token).getBody(); //parsing here validates the token signature.
         return claimsResolver.apply(claims);
-    }
-
-    private Boolean isTokenExpired(String token) {
-        final Date expiration = getExpirationDate(token);
-        return expiration.before(new Date());
     }
 
     public String generateToken(Player player) {

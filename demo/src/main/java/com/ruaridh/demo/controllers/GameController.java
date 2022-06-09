@@ -76,7 +76,8 @@ public class GameController {
             if (player == null) {
                 return false;
             }
-            if (game.addPlayer(player, isWhite ? Piece.Colour.WHITE : Piece.Colour.BLACK)) {
+            if (game.canJoin(playerName, isWhite)) {
+                game.addPlayer(player, isWhite ? Piece.Colour.WHITE : Piece.Colour.BLACK);
                 _gameFactory.saveGame(game);
                 return true;
             }
