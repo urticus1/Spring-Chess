@@ -95,4 +95,8 @@ public class Game {
     public boolean isPlayersTurn(String playerName) {
         return _turn == Piece.Colour.WHITE ? playerName.equals(_playerWhite) : playerName.equals(_playerBlack);
     }
+
+    public boolean canJoin(String playerName, boolean white) {
+        return !hasPlayer(playerName) && white ? _playerWhite == null : _playerBlack == null;
+    }
 }
